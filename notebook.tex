@@ -1,0 +1,2539 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{python\_study}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} 所有变量都可以理解成内存中一个对象的“引用”}
+        \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{func\PYZus{}in}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{id}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+            \PY{n}{a} \PY{o}{=} \PY{l+m+mi}{2}
+            \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{re\PYZhy{}point}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{id}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,}\PY{n+nb}{id}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{func\PYZus{}out}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{id}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,}\PY{n+nb}{id}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{fun}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+        \PY{n+nb}{print} \PY{n}{a}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+func\_out 37905736 37905736
+func\_in 37905736
+re-point 37905712 37905712
+1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{a}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+        \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{func\PYZus{}in}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{id}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+            \PY{n}{a}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{func\PYZus{}out}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{id}\PY{p}{(}\PY{n}{a}\PY{p}{)} 
+        \PY{n}{fun}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+        \PY{n+nb}{print} \PY{n}{a}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+func\_out 63409416
+func\_in 63409416
+[1]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{def} \PY{n+nf}{foo}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{executing foo(}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         
+         \PY{k}{class} \PY{n+nc}{B}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{foo}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{executing foo(}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} 类方法}
+             \PY{n+nd}{@classmethod}   
+             \PY{k}{def} \PY{n+nf}{class\PYZus{}foo}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{executing class\PYZus{}foo(}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n+nb+bp}{cls}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}静态方法}
+             \PY{n+nd}{@staticmethod}
+             \PY{k}{def} \PY{n+nf}{static\PYZus{}foo}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{executing static\PYZus{}foo(}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{x}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{B}\PY{o}{.}\PY{n}{static\PYZus{}foo}\PY{p}{(}\PY{l+m+mi}{22}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+executing static\_foo(22)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{B}\PY{o}{.}\PY{n}{class\PYZus{}foo}\PY{p}{(}\PY{l+m+mi}{22}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+executing class\_foo(<class '\_\_main\_\_.B'>,22)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{class} \PY{n+nc}{Test}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}  
+             \PY{n}{num\PYZus{}of\PYZus{}instance} \PY{o}{=} \PY{l+m+mi}{0}  
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}  
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{n}{name}  
+                 \PY{n}{Test}\PY{o}{.}\PY{n}{num\PYZus{}of\PYZus{}instance} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}  
+                 
+         \PY{n+nb}{print} \PY{n}{Test}\PY{o}{.}\PY{n}{num\PYZus{}of\PYZus{}instance}   \PY{c+c1}{\PYZsh{} 0}
+         \PY{n}{t1} \PY{o}{=} \PY{n}{Test}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jack}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+         \PY{n+nb}{print} \PY{n}{Test}\PY{o}{.}\PY{n}{num\PYZus{}of\PYZus{}instance}   \PY{c+c1}{\PYZsh{} 1}
+         \PY{n}{t2} \PY{o}{=} \PY{n}{Test}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lucy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+         \PY{n+nb}{print} \PY{n}{t1}\PY{o}{.}\PY{n}{name} \PY{p}{,} \PY{n}{t1}\PY{o}{.}\PY{n}{num\PYZus{}of\PYZus{}instance}  \PY{c+c1}{\PYZsh{} jack 2}
+         \PY{n+nb}{print} \PY{n}{t2}\PY{o}{.}\PY{n}{name} \PY{p}{,} \PY{n}{t2}\PY{o}{.}\PY{n}{num\PYZus{}of\PYZus{}instance}  \PY{c+c1}{\PYZsh{} lucy 2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+1
+jack 2
+lucy 2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)} \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{3} \PY{o+ow}{is} \PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} [0, 3, 6, 9, 12, 15, 18, 21, 24, 27]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{n}{x}
+         \PY{p}{[}\PY{n}{fun}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)} \PY{k}{if} \PY{n}{x}\PY{o}{\PYZpc{}}\PY{k}{3} == 0]
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} [0, 9, 36, 81, 144, 225, 324, 441, 576, 729]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{p}{[}\PY{n}{x}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)} \PY{k}{if} \PY{n}{x}\PY{o}{\PYZpc{}}\PY{k}{3} == 0]
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} [0, 9, 36, 81, 144, 225, 324, 441, 576, 729]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{multiples} \PY{o}{=} \PY{p}{(}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)} \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{3} \PY{o+ow}{is} \PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{multiples}\PY{o}{.}\PY{n}{next}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} 6
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{mcase} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{34}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}
+         \PY{n}{mcase\PYZus{}frequency} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{n}{k}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{:}\PY{n}{mcase}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{k}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{+}\PY{n}{mcase}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{k}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{mcase}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+             \PY{k}{if} \PY{n}{k}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{p}{\PYZcb{}}
+         \PY{n+nb}{print} \PY{n}{mcase\PYZus{}frequency}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'a': 17, 'b': 34\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{p}{\PYZob{}}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} \{1, 4\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k}{class} \PY{n+nc}{A}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}superprivate} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hello}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}semiprivate} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{word!}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{a} \PY{o}{=} \PY{n}{A}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    a.\textbf{dict}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{a}\PY{o}{.}\PY{n}{\PYZus{}A\PYZus{}\PYZus{}superprivate}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} 'hello'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{k}{for} \PY{n}{count}\PY{p}{,}\PY{n}{thing} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print} \PY{n}{count}\PY{p}{,}\PY{n}{thing}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 1
+1 2
+2 3
+3 4
+
+    \end{Verbatim}
+
+    \subsubsection{装饰器
+经常被用于有切面需求的场景，比如插入日志，性能测试，事务处理等，}\label{ux88c5ux9970ux5668-ux7ecfux5e38ux88abux7528ux4e8eux6709ux5207ux9762ux9700ux6c42ux7684ux573aux666fux6bd4ux5982ux63d2ux5165ux65e5ux5fd7ux6027ux80fdux6d4bux8bd5ux4e8bux52a1ux5904ux7406ux7b49}
+
+\subsubsection{这种设计模式，能够抽离出大量函数中与函数功能本身无关的雷同代码进行继续重用}\label{ux8fd9ux79cdux8bbeux8ba1ux6a21ux5f0fux80fdux591fux62bdux79bbux51faux5927ux91cfux51fdux6570ux4e2dux4e0eux51fdux6570ux529fux80fdux672cux8eabux65e0ux5173ux7684ux96f7ux540cux4ee3ux7801ux8fdbux884cux7ee7ux7eedux91cdux7528}
+
+\subsubsection{装饰器的作用就是为已经存在的对象添加额外的功能}\label{ux88c5ux9970ux5668ux7684ux4f5cux7528ux5c31ux662fux4e3aux5df2ux7ecfux5b58ux5728ux7684ux5bf9ux8c61ux6dfbux52a0ux989dux5916ux7684ux529fux80fd}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{}鸭子类型  鸭子类型在动态语言中经常使用，非常灵活  我们不关心对象是什么类型，我们只关心行为}
+         \PY{n}{a}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{]}
+         \PY{n}{a}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print} \PY{n}{a}
+         \PY{c+c1}{\PYZsh{}list.extend()方法中,我们并不关心它的参数是不是list,只要它是可迭代的,所以它的参数可以是list/tuple/dict/字符串/生成器等.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 1, 2, 3]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:}\PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{p}{,}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} 6
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:}\PY{n}{x}\PY{o}{+}\PY{n}{y}\PY{p}{,}\PY{p}{[}\PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:}\PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{p}{,}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} 153
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:}\PY{n}{x}\PY{o}{+}\PY{n}{y}\PY{p}{,}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{z}\PY{p}{:}\PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:}\PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{p}{,}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{z}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 153
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{b}\PY{o}{=}\PY{l+m+mi}{2}
+         \PY{n}{a}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{b}\PY{p}{,}  \PY{n}{a}\PY{o}{+}\PY{n}{b}
+         \PY{n+nb}{print} \PY{n}{a}
+         \PY{n+nb}{print} \PY{n}{b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{multipliers}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{[}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{i}\PY{o}{*}\PY{n}{x} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} print multipliers()}
+         \PY{n+nb}{print} \PY{p}{[}\PY{n}{m}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{multipliers}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[6, 6, 6, 6]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nb}{list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n+nb}{print} \PY{n+nb}{list}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{foo}\PY{p}{(}\PY{n}{i} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{i}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{n}{i}
+         \PY{n+nb}{print} \PY{n}{foo}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{n}{foo}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1]
+[1, 1]
+
+    \end{Verbatim}
+
+    \subsection{编程题}\label{ux7f16ux7a0bux9898}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{} 1。台阶问题 /斐波那契}
+         \PY{c+c1}{\PYZsh{}一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法。}
+         \PY{n}{fib} \PY{o}{=} \PY{k}{lambda} \PY{n}{n}\PY{p}{:} \PY{n}{n} \PY{k}{if} \PY{n}{n} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{2} \PY{k}{else} \PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{+} \PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{fib}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} 89
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{k}{def} \PY{n+nf}{fib}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{n} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{elif} \PY{n}{n} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{2}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{+}\PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{fib}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} 89
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k}{def} \PY{n+nf}{fib2}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}
+             \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{xrange}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{b}\PY{p}{,}\PY{n}{a}\PY{o}{+}\PY{n}{b}
+             \PY{k}{return} \PY{n}{b}
+         \PY{n}{fib2}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} 89
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{c+c1}{\PYZsh{} 一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法}
+         \PY{n}{fib3} \PY{o}{=} \PY{k}{lambda} \PY{n}{n}\PY{p}{:}\PY{n}{n} \PY{k}{if} \PY{n}{n}\PY{o}{\PYZlt{}}\PY{l+m+mi}{2} \PY{k}{else} \PY{n}{n}\PY{o}{*}\PY{n}{fib3}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{fib3}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}92}]:} 2
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{f} \PY{o}{=}\PY{k}{lambda} \PY{n}{n} \PY{p}{:} \PY{l+m+mi}{1} \PY{k}{if} \PY{n}{n} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2} \PY{k}{else} \PY{n}{f}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{+}\PY{n}{f}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} 杨氏矩阵查找}
+         \PY{c+c1}{\PYZsh{}在一个m行n列二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。}
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}value}\PY{p}{(}\PY{n}{l}\PY{p}{,}\PY{n}{r}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{l}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{p}{[}\PY{n}{c}\PY{p}{]}
+         \PY{k}{def} \PY{n+nf}{find}\PY{p}{(}\PY{n}{l}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{m} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+             \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{l}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{c} \PY{o}{=} \PY{n}{n}
+             \PY{k}{while} \PY{n}{c} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{r} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{m}\PY{p}{:}
+                 \PY{n}{value} \PY{o}{=} \PY{n}{get\PYZus{}value}\PY{p}{(}\PY{n}{l}\PY{p}{,}\PY{n}{r}\PY{p}{,}\PY{n}{c}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{value} \PY{o}{==} \PY{n}{x}\PY{p}{:}
+                     \PY{k}{return} \PY{k+kc}{True}
+                 \PY{k}{elif} \PY{n}{value} \PY{o}{\PYZgt{}} \PY{n}{x}\PY{p}{:}
+                     \PY{n}{c} \PY{o}{=} \PY{n}{c}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+                      \PY{n}{r} \PY{o}{=} \PY{n}{r}\PY{o}{+} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{k+kc}{False}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{l} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{]}
+         \PY{n}{find}\PY{p}{(}\PY{n}{l}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:} True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{lista} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{lista}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} [0, 1, 2, 3, 4, 5, 6, 7]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{l1} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{l2} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{o}{.}\PY{n}{fromkeys}\PY{p}{(}\PY{n}{l1}\PY{p}{)}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{n}{l2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['a', 'c', 'b', 'd']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{l1} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{l2} \PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{l1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{l2}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{key} \PY{o}{=} \PY{n}{l1}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+         \PY{n+nb}{print} \PY{n}{l2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['b', 'c', 'd', 'a']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{l1} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{l2}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}[l2.append(i) for i in l1 if  i not in l2]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{l1}\PY{p}{:}
+             \PY{k}{if} \PY{n}{i} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{l2}\PY{p}{:}
+                 \PY{n}{l2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+         \PY{n+nb}{print} \PY{n}{l2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['b', 'c', 'd', 'a']
+
+    \end{Verbatim}
+
+    \subsection{链表成对调换}\label{ux94feux8868ux6210ux5bf9ux8c03ux6362}
+
+\subsubsection{1-\textgreater{}2-\textgreater{}3-\textgreater{}4转换成2-\textgreater{}1-\textgreater{}4-\textgreater{}3.}\label{ux8f6cux6362ux62102-1-4-3.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{k}{class} \PY{n+nc}{ListNode}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n+nb}{next} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{val} \PY{o}{=} \PY{n}{x}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{next} \PY{o}{=} \PY{n+nb}{next}
+         \PY{k}{class} \PY{n+nc}{Solution}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{swapPairs}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{head}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{head} \PY{o}{!=} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{head}\PY{o}{.}\PY{n}{next} \PY{o}{!=} \PY{k+kc}{None}\PY{p}{:}
+                     \PY{n+nb}{next} \PY{o}{=} \PY{n}{head}\PY{o}{.}\PY{n}{next}
+                     \PY{n}{head}\PY{o}{.}\PY{n}{next} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{swapPairs}\PY{p}{(}\PY{n+nb}{next}\PY{o}{.}\PY{n}{next}\PY{p}{)}
+                     \PY{n+nb}{next}\PY{o}{.}\PY{n}{next} \PY{o}{=} \PY{n}{head}
+                     \PY{k}{return} \PY{n+nb}{next}
+                 \PY{k}{return} \PY{n}{head}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+    \end{Verbatim}
+
+    \subsection{链表基本方法实现}\label{ux94feux8868ux57faux672cux65b9ux6cd5ux5b9eux73b0}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{class} \PY{n+nc}{Node}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        node 初始化}
+         \PY{l+s+sd}{        param data: 节点的数据}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{data} \PY{o}{=}\PY{n}{data}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pnext} \PY{o}{=} \PY{k+kc}{None}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}repr\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+         
+         \PY{k}{class} \PY{n+nc}{LinkedList}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Linked List 的初始化}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{length} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head} \PY{o}{=}  \PY{k+kc}{None}
+             \PY{k}{def} \PY{n+nf}{is\PYZus{}empty}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        判断该链表是否为空}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{length} \PY{o}{==} \PY{l+m+mi}{0}
+             \PY{k}{def} \PY{n+nf}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{this\PYZus{}node}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        在链表末添加node，如果是node对象 直接添加，否则先转换为node对象}
+         \PY{l+s+sd}{        ：param this\PYZus{}node:数据或者node对象}
+         \PY{l+s+sd}{        : return： None}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{this\PYZus{}node}\PY{p}{,}\PY{n}{Node}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{pass}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{this\PYZus{}node} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{data}\PY{o}{=} \PY{n}{this\PYZus{}node}\PY{p}{)}
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}empty}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} 链表为空的情况将头指针指向当前node}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head} \PY{o}{=} \PY{n}{this\PYZus{}node}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{node} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head}
+                     \PY{k}{while} \PY{n}{node}\PY{o}{.}\PY{n}{pnext}\PY{p}{:}
+                         \PY{n}{node} \PY{o}{=} \PY{n}{node}\PY{o}{.}\PY{n}{pnext}
+                     \PY{n}{node}\PY{o}{.}\PY{n}{pnext} \PY{o}{=} \PY{n}{this\PYZus{}node}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{length} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{k}{def} \PY{n+nf}{insert}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{value}\PY{p}{,}\PY{n}{index}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        链表的插入操作}
+         \PY{l+s+sd}{        : param value: 要插入的值}
+         \PY{l+s+sd}{        : param index: 位置}
+         \PY{l+s+sd}{        ：return： None}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{index}\PY{p}{)} \PY{o+ow}{is} \PY{n+nb}{int}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{index} \PY{o}{\PYZgt{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{length}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{} 索引值超出范围}
+                         \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Index value is out of range.}\PY{l+s+s2}{\PYZdq{}}
+                         \PY{k}{return} 
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{}获取当前node对象和head}
+                         \PY{n}{this\PYZus{}node} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{value}\PY{p}{)}
+                         \PY{n}{current\PYZus{}node} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head}
+                         
+                         \PY{k}{if} \PY{n}{index} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head} \PY{o}{=} \PY{n}{this\PYZus{}node}
+                             \PY{n}{this\PYZus{}node}\PY{o}{.}\PY{n}{pnext} \PY{o}{=} \PY{n}{current\PYZus{}node}
+                             \PY{k}{return} 
+                         \PY{k}{while} \PY{n}{index} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                             \PY{n}{current\PYZus{}node} \PY{o}{=} \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext}
+                             \PY{n}{index} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                         
+                         \PY{n}{this\PYZus{}node}\PY{o}{.}\PY{n}{pnext} \PY{o}{=} \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext}
+                         \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext} \PY{o}{=} \PY{n}{this\PYZus{}node}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{length} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                         \PY{k}{return}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Index value is not int.}\PY{l+s+s2}{\PYZdq{}}
+                     \PY{k}{return} 
+             
+             \PY{k}{def} \PY{n+nf}{delete}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{index}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        删除链表中某个位置的节点}
+         \PY{l+s+sd}{        ：param index：位置索引}
+         \PY{l+s+sd}{        ：return： None}
+         
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{index}\PY{p}{)} \PY{o+ow}{is} \PY{n+nb}{int}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{index} \PY{o}{\PYZgt{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{length}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{} 索引值超出范围}
+                         \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Index value is out of range.}\PY{l+s+s2}{\PYZdq{}}
+                         \PY{k}{return} 
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{k}{if} \PY{n}{index} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head}\PY{o}{.}\PY{n}{pnext}
+                         \PY{k}{else}\PY{p}{:}
+                             \PY{n}{current\PYZus{}node} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head}
+                             \PY{k}{while} \PY{n}{index} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{:}
+                                 \PY{n}{current\PYZus{}node} \PY{o}{=} \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext}
+                                 \PY{n}{index} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                             \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext} \PY{o}{=} \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext}\PY{o}{.}\PY{n}{pnext}
+                             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{length} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                             \PY{k}{return} 
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Index value is not int.}\PY{l+s+s2}{\PYZdq{}}
+                     \PY{k}{return}
+             
+             \PY{k}{def} \PY{n+nf}{update}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{value}\PY{p}{,}\PY{n}{index}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        ?????}
+         \PY{l+s+sd}{        为链表中某个位置的节点修改值}
+         \PY{l+s+sd}{        ：param value：更改的值}
+         \PY{l+s+sd}{        ：param index：位置索引}
+         \PY{l+s+sd}{        ：return： None}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{index}\PY{p}{)} \PY{o+ow}{is} \PY{n+nb}{int}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{index} \PY{o}{\PYZgt{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{length}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{} 索引值超出范围}
+                         \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Index value is out of range.}\PY{l+s+s2}{\PYZdq{}}
+                         \PY{k}{return} 
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{this\PYZus{}node} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{data}\PY{o}{=} \PY{n}{value}\PY{p}{)}
+                         \PY{k}{if} \PY{n}{index} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                             \PY{n}{this\PYZus{}node}\PY{o}{.}\PY{n}{pnext} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head}\PY{o}{.}\PY{n}{pnext}
+                             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head} \PY{o}{=} \PY{n}{this\PYZus{}node}
+                         \PY{k}{else}\PY{p}{:}
+                             \PY{n}{current\PYZus{}node} \PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head}
+                             \PY{k}{while} \PY{n}{index} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{:}
+                                 \PY{n}{current\PYZus{}node} \PY{o}{=} \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext}
+                                 \PY{n}{index} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                             \PY{n}{this\PYZus{}node}\PY{o}{.}\PY{n}{pnext} \PY{o}{=} \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext}\PY{o}{.}\PY{n}{pnext}
+                             \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext} \PY{o}{=} \PY{n}{this\PYZus{}node}
+                             \PY{k}{return} 
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Index value is not int.}\PY{l+s+s2}{\PYZdq{}}
+                     \PY{k}{return}
+             
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}value}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{index}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        获取链表中某个位置节点的值}
+         \PY{l+s+sd}{        ：param index：位置索引}
+         \PY{l+s+sd}{        ：return：该节点的值}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{index}\PY{p}{)} \PY{o+ow}{is} \PY{n+nb}{int}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{index} \PY{o}{\PYZgt{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{length}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{} 索引值超出范围}
+                         \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Index value is out of range.}\PY{l+s+s2}{\PYZdq{}}
+                         \PY{k}{return} 
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{k}{if} \PY{n}{index} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                             \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head}\PY{o}{.}\PY{n}{data}
+                         \PY{k}{else}\PY{p}{:}
+                             \PY{n}{current\PYZus{}node} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head}
+                             \PY{k}{while} \PY{n}{index} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                                 \PY{n}{current\PYZus{}node} \PY{o}{=} \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext}
+                                 \PY{n}{index} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                             \PY{k}{return} \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext}\PY{o}{.}\PY{n}{data}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Index value is not int.}\PY{l+s+s2}{\PYZdq{}}
+                     \PY{k}{return}
+                 
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}length}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        获取链表长度}
+         \PY{l+s+sd}{        ：return： int}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{current\PYZus{}node} \PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head}
+                 \PY{k}{if} \PY{n}{current\PYZus{}node}\PY{p}{:}
+                     \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{k}{while} \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext}\PY{p}{:}
+                         \PY{n}{current\PYZus{}node} \PY{o}{=} \PY{n}{current\PYZus{}node}\PY{o}{.}\PY{n}{pnext}
+                         \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{k}{return} \PY{n}{i}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{0}
+                 
+             \PY{k}{def} \PY{n+nf}{clear}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        清空链表}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head} \PY{o}{=} \PY{k+kc}{None}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{length} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{k}{def} \PY{n+nf}{print\PYZus{}linked\PYZus{}list}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        对整个链表打印}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}empty}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{list length is 0}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{node} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{head}
+                     \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Head \PYZhy{} \PYZhy{}\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{node}\PY{o}{.}\PY{n}{data}\PY{p}{,} 
+                     \PY{k}{while} \PY{n}{node}\PY{o}{.}\PY{n}{pnext}\PY{p}{:}
+                         \PY{n}{node} \PY{o}{=} \PY{n}{node}\PY{o}{.}\PY{n}{pnext}
+                         \PY{n+nb}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{} \PYZhy{}\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{node}\PY{o}{.}\PY{n}{data}\PY{p}{,}
+                     \PY{n+nb}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{} \PYZhy{}\PYZgt{}None.}\PY{l+s+s1}{\PYZsq{}}
+                     
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{node1} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{node2} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{linked\PYZus{}list} \PY{o}{=} \PY{n}{LinkedList}\PY{p}{(}\PY{p}{)}
+         \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node1}\PY{p}{)}
+         \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{print\PYZus{}linked\PYZus{}list}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Head - -> node1 - -> node2 - ->None.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:}  \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1233}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{print\PYZus{}linked\PYZus{}list}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Head - -> node1 - -> 1233 - -> node2 - ->None.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{get\PYZus{}length}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 3
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{enen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{print\PYZus{}linked\PYZus{}list}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Head - -> node1 - -> enen - -> 1233 - -> node2 - ->None.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{n}{value}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{update\PYZus{}222}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{print\PYZus{}linked\PYZus{}list}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Head - -> node1 - -> enen - -> update\_222 - -> node2 - ->None.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{linked\PYZus{}list}\PY{o}{.}\PY{n}{get\PYZus{}value}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 'update\_222'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{ListNode}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{val} \PY{o}{=} \PY{n}{x}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{next} \PY{o}{=} \PY{k+kc}{None}
+        \PY{k}{class} \PY{n+nc}{Solution}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{swapPairs}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{head}\PY{p}{)}\PY{p}{:}
+                \PY{n}{prev} \PY{o}{=} \PY{n}{hrad}
+                \PY{n}{tail} \PY{o}{=} \PY{n}{prev}\PY{o}{.}\PY{n}{next}
+                \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+                    \PY{n}{prev}\PY{o}{.}\PY{n}{val}\PY{p}{,}\PY{n}{tail}\PY{o}{.}\PY{n}{val} \PY{o}{=} \PY{n}{tail}\PY{o}{.}\PY{n}{val}\PY{p}{,}\PY{n}{prev}\PY{o}{.}\PY{n}{val}
+                    \PY{n}{prev} \PY{o}{=} \PY{n}{tail}\PY{o}{.}\PY{n}{next}
+                    \PY{n}{tail} \PY{o}{=} \PY{n}{prev}\PY{o}{.}\PY{n}{next}
+                \PY{k}{return} \PY{n}{head}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{items} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hhh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{port}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{123}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n+nb}{dict}\PY{p}{(}\PY{n}{items}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} \{'name': 'hhh', 'port': '123'\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{o}{.}\PY{n}{fromkeys}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} \{'x': -1, 'y': -1\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{o}{.}\PY{n}{fromkeys}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} \{'x': (-1, 2), 'y': (-1, 2)\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} 合并两个有序列表}
+         \PY{c+c1}{\PYZsh{}尾递归}
+         \PY{k}{def} \PY{n+nf}{\PYZus{}recursion\PYZus{}merge\PYZus{}sort2}\PY{p}{(}\PY{n}{l1}\PY{p}{,}\PY{n}{l2}\PY{p}{,}\PY{n}{tmp}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{l1}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{or} \PY{n+nb}{len}\PY{p}{(}\PY{n}{l2}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{tmp}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{l1}\PY{p}{)}
+                 \PY{n}{tmp}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{l2}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{tmp}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{l1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{l2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{tmp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{l1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{del} \PY{n}{l1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{tmp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{l2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{del} \PY{n}{l2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{k}{return} \PY{n}{\PYZus{}recursion\PYZus{}merge\PYZus{}sort2}\PY{p}{(}\PY{n}{l1}\PY{p}{,}\PY{n}{l2}\PY{p}{,}\PY{n}{tmp}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{recursion\PYZus{}merge\PYZus{}sort2}\PY{p}{(}\PY{n}{l1}\PY{p}{,}\PY{n}{l2}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{\PYZus{}recursion\PYZus{}merge\PYZus{}sort2}\PY{p}{(}\PY{n}{l1}\PY{p}{,}\PY{n}{l2}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{l1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{70}\PY{p}{]}
+         \PY{n}{l2} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}
+         \PY{n}{recursion\PYZus{}merge\PYZus{}sort2}\PY{p}{(}\PY{n}{l1}\PY{p}{,}\PY{n}{l2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} [1, 2, 2, 3, 3, 4, 5, 5, 7, 60, 70, 90, 100]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{def} \PY{n+nf}{loop\PYZus{}merge\PYZus{}sort}\PY{p}{(}\PY{n}{l1}\PY{p}{,}\PY{n}{l2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tmp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{while} \PY{n+nb}{len}\PY{p}{(}\PY{n}{l1}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n+nb}{len}\PY{p}{(}\PY{n}{l2}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{l1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{l2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{tmp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{l1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{del} \PY{n}{l1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{tmp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{l2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{del} \PY{n}{l2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{tmp}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{l1}\PY{p}{)}
+             \PY{n}{tmp}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{l2}\PY{p}{)}
+             \PY{k}{return} \PY{n}{tmp}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{l1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{70}\PY{p}{]}
+         \PY{n}{l2} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}
+         \PY{n}{loop\PYZus{}merge\PYZus{}sort}\PY{p}{(}\PY{n}{l1}\PY{p}{,}\PY{n}{l2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} [1, 2, 2, 3, 3, 4, 5, 5, 7, 60, 70, 90, 100]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} pop 弹出}
+         \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}
+         \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{k}{def} \PY{n+nf}{merge\PYZus{}sortedlist}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{n}{c}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{k}{while} \PY{n}{a} \PY{o+ow}{and} \PY{n}{b}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{a}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{b}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{c}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{b}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{c}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+             \PY{k}{while} \PY{n}{a}\PY{p}{:}
+                 \PY{n}{c}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+             \PY{k}{while} \PY{n}{b}\PY{p}{:}
+                 \PY{n}{c}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{b}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{c}
+         \PY{n+nb}{print} \PY{n}{merge\PYZus{}sortedlist}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 2, 3, 3, 4, 5, 7]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{a} \PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{min}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{1} \PY{o+ow}{and} \PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{!=} \PY{n}{b}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{k}{break}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{a}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{n}{b}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{交叉节点：}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{a}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}
+                     \PY{k}{break}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+交叉节点： 7
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{} 构造链表类}
+         \PY{k}{class} \PY{n+nc}{ListNode}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{val} \PY{o}{=} \PY{n}{x}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{next} \PY{o}{=} \PY{k+kc}{None}
+         \PY{c+c1}{\PYZsh{} 有疑问？？？？？}
+         \PY{k}{def} \PY{n+nf}{node}\PY{p}{(}\PY{n}{l1}\PY{p}{,}\PY{n}{l2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{length1}\PY{p}{,}\PY{n}{length2} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}
+             \PY{k}{while} \PY{n}{l1}\PY{o}{.}\PY{n}{next}\PY{p}{:}
+                 \PY{n}{l1} \PY{o}{=}\PY{n}{l1}\PY{o}{.}\PY{n}{next}
+                 \PY{n}{length1} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{while} \PY{n}{l2}\PY{o}{.}\PY{n}{next}\PY{p}{:}
+                 \PY{n}{l2} \PY{o}{=}\PY{n}{l2}\PY{o}{.}\PY{n}{next}
+                 \PY{n}{length2} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{if} \PY{n}{l1}\PY{o}{.}\PY{n}{next} \PY{o}{==} \PY{n}{l2}\PY{o}{.}\PY{n}{next}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{length1} \PY{o}{\PYZgt{}} \PY{n}{length2}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{length1}\PY{o}{\PYZhy{}}\PY{n}{length2}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{l1} \PY{o}{=} \PY{n}{l1}\PY{o}{.}\PY{n}{next}
+                     \PY{k}{return} \PY{n}{l1}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{length2} \PY{o}{\PYZhy{}} \PY{n}{length1}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{l2} \PY{o}{=} \PY{n}{l2}\PY{o}{.}\PY{n}{next}
+                     \PY{k}{return} \PY{l+m+mi}{12}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} 
+                 
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} 二分查找}
+         \PY{k}{def} \PY{n+nf}{binary\PYZus{}search}\PY{p}{(}\PY{n}{lista}\PY{p}{,}\PY{n}{item}\PY{p}{)}\PY{p}{:}
+             \PY{n}{low} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{high} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{lista}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{k}{while} \PY{n}{low} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{high}\PY{p}{:}
+                 \PY{n}{mid} \PY{o}{=} \PY{p}{(}\PY{n}{low}\PY{o}{+}\PY{n}{high}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}
+                 \PY{n}{tmp} \PY{o}{=} \PY{n}{lista}\PY{p}{[}\PY{n}{mid}\PY{p}{]}
+                 \PY{k}{if} \PY{n}{tmp} \PY{o}{\PYZgt{}} \PY{n}{item}\PY{p}{:}
+                     \PY{n}{high} \PY{o}{=} \PY{n}{mid} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+                 \PY{k}{elif} \PY{n}{tmp} \PY{o}{\PYZlt{}} \PY{n}{item}\PY{p}{:}
+                     \PY{n}{low} \PY{o}{=} \PY{n}{mid} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{mid}
+             \PY{k}{return} \PY{k+kc}{None}
+         \PY{n}{lista} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{78}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{]}
+         \PY{n}{binary\PYZus{}search}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{l+m+mi}{78}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} 5
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{} 快速排序}
+         \PY{k}{def} \PY{n+nf}{quicksort}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{start}\PY{p}{,} \PY{n}{end}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{if} \PY{n}{start} \PY{o}{\PYZlt{}} \PY{n}{end}\PY{p}{:}
+                 \PY{n}{pivot\PYZus{}index} \PY{o}{=} \PY{n}{partition}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{start}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+                 \PY{n}{quicksort}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{start}\PY{p}{,}\PY{n}{pivot\PYZus{}index}\PY{p}{)}
+                 \PY{n}{quicksort}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{pivot\PYZus{}index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{end}\PY{p}{)}
+             \PY{k}{return} \PY{n}{lists}
+         
+         \PY{k}{def} \PY{n+nf}{partition}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{start}\PY{p}{,}\PY{n}{end}\PY{p}{)}\PY{p}{:}
+             \PY{n}{pivot\PYZus{}index} \PY{o}{=} \PY{n}{start}
+             \PY{n}{pivot} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{n}{pivot\PYZus{}index}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{start} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,}\PY{n}{end}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{lists}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{pivot}\PY{p}{:}
+                     \PY{n}{pivot\PYZus{}index} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{k}{if} \PY{n}{pivot\PYZus{}index} \PY{o}{!=} \PY{n}{i}\PY{p}{:}
+                         \PY{n}{lists}\PY{p}{[}\PY{n}{pivot\PYZus{}index}\PY{p}{]} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                         \PY{n}{lists}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{n}{pivot\PYZus{}index}\PY{p}{]}
+             \PY{n}{lists}\PY{p}{[}\PY{n}{start}\PY{p}{]} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{n}{pivot\PYZus{}index}\PY{p}{]}
+             \PY{n}{lists}\PY{p}{[}\PY{n}{pivot\PYZus{}index}\PY{p}{]} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{n}{start}\PY{p}{]}
+             \PY{k}{return} \PY{n}{pivot\PYZus{}index}
+         \PY{n}{lists}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{quicksort}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{start} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{lists}\PY{p}{)}\PY{p}{)}    
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} [1, 1, 1, 1, 3, 5, 5]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{k}{def} \PY{n+nf}{quicksort1}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{start}\PY{p}{,}\PY{n}{end}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{if} \PY{n}{start} \PY{o}{\PYZlt{}} \PY{n}{end}\PY{p}{:}
+                 \PY{n}{pivot\PYZus{}index} \PY{o}{=} \PY{n}{partition1}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{start}\PY{p}{,}\PY{n}{end}\PY{p}{)} \PY{c+c1}{\PYZsh{} z左右分区}
+                 \PY{n}{quicksort}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{start}\PY{p}{,}\PY{n}{pivot\PYZus{}index}\PY{p}{)}
+                 \PY{n}{quicksort}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{pivot\PYZus{}index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+             \PY{k}{return} \PY{n}{lists}
+         
+         \PY{k}{def} \PY{n+nf}{partition1}\PY{p}{(}\PY{n}{lists}\PY{p}{,} \PY{n}{start}\PY{p}{,}\PY{n}{end}\PY{p}{)}\PY{p}{:}
+             \PY{n}{pivot\PYZus{}index} \PY{o}{=} \PY{n}{start}
+             \PY{n}{pivot} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{n}{pivot\PYZus{}index}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{start} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{end}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{lists}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{pivot}\PY{p}{:}
+                     \PY{n}{pivot\PYZus{}index} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} 每发现一个比pivot小的元素，意味着 pivot的位置向后移动一位}
+                     \PY{k}{if} \PY{n}{pivot\PYZus{}index} \PY{o}{!=} \PY{n}{i}\PY{p}{:}
+                         \PY{n}{lists}\PY{p}{[}\PY{n}{pivot\PYZus{}index}\PY{p}{]}\PY{p}{,}\PY{n}{lists}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{lists}\PY{p}{[}\PY{n}{pivot\PYZus{}index}\PY{p}{]}
+             \PY{n}{lists}\PY{p}{[}\PY{n}{start}\PY{p}{]}\PY{p}{,}\PY{n}{lists}\PY{p}{[}\PY{n}{pivot\PYZus{}index}\PY{p}{]} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{n}{pivot\PYZus{}index}\PY{p}{]}\PY{p}{,}\PY{n}{lists}\PY{p}{[}\PY{n}{start}\PY{p}{]}
+             \PY{k}{return} \PY{n}{pivot\PYZus{}index}
+         \PY{n}{lists}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{]}
+         \PY{n}{quicksort1}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{start} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}\PY{n}{end} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{lists}\PY{p}{)}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} [2, 4, 6, 7, 21, 21, 21]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{s} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YiXin cAPTIKJion}\PY{l+s+s1}{\PYZsq{}}
+         \PY{c+c1}{\PYZsh{} print s}
+         \PY{n}{s} \PY{o}{=} \PY{n}{s}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{n}{s}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Yixin Captikjion
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{datasets}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{n}{iris} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print iris}
+         \PY{n}{y} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{target}
+         \PY{n+nb}{print} \PY{n}{y}
+         \PY{n}{z} \PY{o}{=} \PY{p}{(}\PY{n}{y} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{l} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{n}{iris}\PY{o}{.}\PY{n}{feature\PYZus{}names}\PY{p}{)}
+         \PY{n+nb}{print} \PY{n}{l}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print y}
+         \PY{n+nb}{print} \PY{n}{l}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k+kn}{import} \PY{n+nn}{csv}
+         
+         \PY{k}{def} \PY{n+nf}{write\PYZus{}iris\PYZus{}data2csv}\PY{p}{(}\PY{n}{csvpath}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{future}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{ScoreCard}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{iris\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}  
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}\PYZsq{}\PYZsq{} }
+         \PY{l+s+sd}{    读取sklearn库中的iris数据写入到csv文件中 }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}  
+             \PY{n}{iris} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)} 
+             \PY{n}{data}\PY{o}{=}\PY{n}{iris}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}    
+             \PY{n}{target}\PY{o}{=}\PY{n}{iris}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}  
+             \PY{n}{myfile}\PY{o}{=}\PY{n+nb}{open}\PY{p}{(}\PY{n}{csvpath}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+             \PY{n}{mywriter}\PY{o}{=}\PY{n}{csv}\PY{o}{.}\PY{n}{writer}\PY{p}{(}\PY{n}{myfile}\PY{p}{)}  
+             \PY{n}{mywriter}\PY{o}{.}\PY{n}{writerow}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal length (cm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal width (cm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal length (cm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal width (cm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{species}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}  
+             \PY{k}{for} \PY{n}{one\PYZus{}list} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{:}  
+                 \PY{n}{one\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{target}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}  
+                 \PY{n}{mywriter}\PY{o}{.}\PY{n}{writerow}\PY{p}{(}\PY{n}{one\PYZus{}list}\PY{p}{)}  
+             \PY{n}{myfile}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)} 
+         \PY{n}{write\PYZus{}iris\PYZus{}data2csv}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2]
+   sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)
+0                5.1               3.5                1.4               0.2
+1                4.9               3.0                1.4               0.2
+2                4.7               3.2                1.3               0.2
+3                4.6               3.1                1.5               0.2
+4                5.0               3.6                1.4               0.2
+5                5.4               3.9                1.7               0.4
+6                4.6               3.4                1.4               0.3
+7                5.0               3.4                1.5               0.2
+8                4.4               2.9                1.4               0.2
+9                4.9               3.1                1.5               0.1
+\{'petal length (cm)': 1.3999999999999999, 'sepal width (cm)': 3.5, 'petal width (cm)': 0.20000000000000001, 'sepal length (cm)': 5.0999999999999996\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k}{def} \PY{n+nf}{quicksort01}\PY{p}{(}\PY{n}{lists}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{lists}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{lists}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{pivot} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{lessbeforepivot} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{k}{if} \PY{n}{i} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{pivot} \PY{p}{]}
+                 \PY{n}{biggerafterpivot} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{k}{if} \PY{n}{i} \PY{o}{\PYZgt{}} \PY{n}{pivot}\PY{p}{]}
+                 \PY{n}{finallylists} \PY{o}{=} \PY{n}{quicksort01}\PY{p}{(}\PY{n}{lessbeforepivot}\PY{p}{)}\PY{o}{+}\PY{p}{[}\PY{n}{pivot}\PY{p}{]}\PY{o}{+}\PY{n}{quicksort01}\PY{p}{(}\PY{n}{biggerafterpivot}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{finallylists}
+             
+         \PY{n}{quicksort01}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} [1, 2, 2, 4, 5, 6, 7]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{k}{def} \PY{n+nf}{fib}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{n} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{2}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{n}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{+}\PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{fib}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} 89
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k}{def} \PY{n+nf}{fib2}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}
+             \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{xrange}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{tmp} \PY{o}{=} \PY{n}{b}
+                 \PY{n}{b} \PY{o}{=} \PY{n}{a}\PY{o}{+}\PY{n}{b}
+                 \PY{n}{a} \PY{o}{=} \PY{n}{tmp}
+             \PY{k}{return} \PY{n}{b}
+         \PY{n}{fib2}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} 89
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{fib2}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+            \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}
+            \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{xrange}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{b}\PY{p}{,}\PY{n}{a}\PY{o}{+}\PY{n}{b}
+            \PY{k}{return} \PY{n}{b}
+        \PY{n}{fib2}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}
+         \PY{n+nb}{print} \PY{n}{a}\PY{p}{,}\PY{n}{b}
+         \PY{c+c1}{\PYZsh{} a = b}
+         \PY{c+c1}{\PYZsh{} b = a+b}
+         \PY{n}{a}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{b}\PY{p}{,}\PY{n}{a}\PY{o}{+}\PY{n}{b}
+         \PY{n+nb}{print} \PY{n}{a}\PY{p}{,}\PY{n}{b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 1
+1 1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{k}{def} \PY{n+nf}{coinChange}\PY{p}{(}\PY{n}{values}\PY{p}{,}\PY{n}{valuesCounts}\PY{p}{,}\PY{n}{money}\PY{p}{,}\PY{n}{coinsUsed}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    :param values: 硬币的面值}
+         \PY{l+s+sd}{    ：param valuesCounts： 钱币对应的种类数}
+         \PY{l+s+sd}{    ：param money：找出来的总钱数}
+         \PY{l+s+sd}{    ：param coinsUsed：对应于目前钱币总数i 所使用的硬币数目}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} 遍历出从1 到money所有的钱数可能}
+             \PY{k}{for} \PY{n}{cents} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{money}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{minCoins} \PY{o}{=} \PY{n}{cents}
+                 \PY{c+c1}{\PYZsh{} 把所有的硬币面值遍历出来和钱数做对比}
+                 \PY{k}{for} \PY{n}{kind} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{valuesCounts}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{values}\PY{p}{[}\PY{n}{kind}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{cents}\PY{p}{:}
+                         \PY{n}{temp} \PY{o}{=} \PY{n}{coinsUsed}\PY{p}{[}\PY{n}{cents} \PY{o}{\PYZhy{}} \PY{n}{values}\PY{p}{[}\PY{n}{kind}\PY{p}{]}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1}
+                         \PY{k}{if} \PY{n}{temp} \PY{o}{\PYZlt{}} \PY{n}{minCoins}\PY{p}{:}
+                             \PY{n}{minCoins} \PY{o}{=} \PY{n}{temp}
+                 \PY{n}{coinsUsed}\PY{p}{[}\PY{n}{cents}\PY{p}{]}  \PY{o}{=} \PY{n}{minCoins}
+                 \PY{n+nb}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{面值:}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s1}{的最少硬币使用数为:}\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{cents}\PY{p}{,} \PY{n}{coinsUsed}\PY{p}{[}\PY{n}{cents}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{coinsUsed}\PY{p}{,}\PY{n}{used\PYZus{}list}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{tmp}\PY{p}{,}\PY{n}{used} \PY{o}{=} \PY{n}{coinChange}\PY{p}{(}\PY{n}{values}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{]}\PY{p}{,}\PY{n}{valuesCounts}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{money}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,}\PY{n}{coinsUsed}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{100}
+                         \PY{p}{,}\PY{n}{used\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*************}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n+nb}{print} \PY{n}{tmp}\PY{p}{[}\PY{l+m+mi}{64}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+面值:1的最少硬币使用数为:1
+面值:2的最少硬币使用数为:1
+面值:3的最少硬币使用数为:2
+面值:4的最少硬币使用数为:2
+面值:5的最少硬币使用数为:1
+面值:6的最少硬币使用数为:2
+面值:7的最少硬币使用数为:2
+面值:8的最少硬币使用数为:3
+面值:9的最少硬币使用数为:3
+面值:10的最少硬币使用数为:1
+面值:11的最少硬币使用数为:2
+面值:12的最少硬币使用数为:2
+面值:13的最少硬币使用数为:3
+面值:14的最少硬币使用数为:3
+面值:15的最少硬币使用数为:2
+面值:16的最少硬币使用数为:3
+面值:17的最少硬币使用数为:3
+面值:18的最少硬币使用数为:4
+面值:19的最少硬币使用数为:4
+面值:20的最少硬币使用数为:2
+面值:21的最少硬币使用数为:3
+面值:22的最少硬币使用数为:3
+面值:23的最少硬币使用数为:4
+面值:24的最少硬币使用数为:4
+面值:25的最少硬币使用数为:1
+面值:26的最少硬币使用数为:2
+面值:27的最少硬币使用数为:2
+面值:28的最少硬币使用数为:3
+面值:29的最少硬币使用数为:3
+面值:30的最少硬币使用数为:2
+面值:31的最少硬币使用数为:3
+面值:32的最少硬币使用数为:3
+面值:33的最少硬币使用数为:4
+面值:34的最少硬币使用数为:4
+面值:35的最少硬币使用数为:2
+面值:36的最少硬币使用数为:3
+面值:37的最少硬币使用数为:3
+面值:38的最少硬币使用数为:4
+面值:39的最少硬币使用数为:4
+面值:40的最少硬币使用数为:3
+面值:41的最少硬币使用数为:4
+面值:42的最少硬币使用数为:4
+面值:43的最少硬币使用数为:5
+面值:44的最少硬币使用数为:5
+面值:45的最少硬币使用数为:3
+面值:46的最少硬币使用数为:4
+面值:47的最少硬币使用数为:4
+面值:48的最少硬币使用数为:5
+面值:49的最少硬币使用数为:5
+面值:50的最少硬币使用数为:2
+面值:51的最少硬币使用数为:3
+面值:52的最少硬币使用数为:3
+面值:53的最少硬币使用数为:4
+面值:54的最少硬币使用数为:4
+面值:55的最少硬币使用数为:3
+面值:56的最少硬币使用数为:4
+面值:57的最少硬币使用数为:4
+面值:58的最少硬币使用数为:5
+面值:59的最少硬币使用数为:5
+面值:60的最少硬币使用数为:3
+面值:61的最少硬币使用数为:4
+面值:62的最少硬币使用数为:4
+面值:63的最少硬币使用数为:5
+面值:64的最少硬币使用数为:5
+*************
+5
+[0, 0, 2, 2, 2, 5, 5, 2, 2, 2, 10, 10, 2, 2, 2, 5, 5, 2, 2, 2, 10, 10, 2, 2, 2, 25, 1, 2, 2, 2, 5, 5, 2, 2, 2, 10, 10, 2, 2, 2, 5, 5, 2, 2, 2, 10, 10, 2, 2, 2, 25, 1, 2, 2, 2, 5, 5, 2, 2, 2, 10, 10, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+[5]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{k}{def} \PY{n+nf}{giveChange}\PY{p}{(}\PY{n}{need\PYZus{}change}\PY{p}{,}\PY{n}{currency\PYZus{}list}\PY{p}{,}\PY{n}{num\PYZus{}list}\PY{p}{,}\PY{n}{used\PYZus{}list}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    :param need\PYZus{}change 需要找零的金额}
+         \PY{l+s+sd}{    :param currency\PYZus{}list: 货币的面值}
+         \PY{l+s+sd}{    :param num\PYZus{}list: 为需要找零的最少货币数目}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{for} \PY{n}{change} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{need\PYZus{}change}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{currency} \PY{o+ow}{in} \PY{n}{currency\PYZus{}list}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{change} \PY{o}{\PYZhy{}} \PY{n}{currency} \PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{num\PYZus{}list}\PY{p}{[}\PY{n}{change}\PY{o}{\PYZhy{}}\PY{n}{currency}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZlt{}}\PY{n}{num\PYZus{}list}\PY{p}{[}\PY{n}{change}\PY{p}{]}\PY{p}{:}
+                         \PY{n}{num\PYZus{}list}\PY{p}{[}\PY{n}{change}\PY{p}{]} \PY{o}{=} \PY{n}{num\PYZus{}list}\PY{p}{[}\PY{n}{change} \PY{o}{\PYZhy{}} \PY{n}{currency}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1}
+                         \PY{n}{used\PYZus{}list}\PY{p}{[}\PY{n}{change}\PY{p}{]} \PY{o}{=} \PY{n}{currency}
+         \PY{k}{def} \PY{n+nf}{showChange}\PY{p}{(}\PY{n}{need\PYZus{}change}\PY{p}{,}\PY{n}{used\PYZus{}list}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{give\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{while} \PY{n}{need\PYZus{}change} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{give\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{used\PYZus{}list}\PY{p}{[}\PY{n}{need\PYZus{}change}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{need\PYZus{}change} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{used\PYZus{}list}\PY{p}{[}\PY{n}{need\PYZus{}change}\PY{p}{]}
+             \PY{n}{give\PYZus{}list}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{give\PYZus{}list}
+         
+         \PY{n}{need\PYZus{}change} \PY{o}{=} \PY{l+m+mi}{64} \PY{c+c1}{\PYZsh{}需要找零的钱数}
+         \PY{n}{currency\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{]} \PY{c+c1}{\PYZsh{} 该国的货币面值列表}
+         \PY{n}{num\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{need\PYZus{}change}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}初始化num\PYZus{}list为0到need\PYZus{}change,共(need\PYZus{}change+1)个数}
+         \PY{n}{used\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{need\PYZus{}change}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}初始化used\PYZus{}list为0到need\PYZus{}change,共(need\PYZus{}change+1)个数}
+         \PY{n}{giveChange}\PY{p}{(}\PY{n}{need\PYZus{}change}\PY{p}{,} \PY{n}{currency\PYZus{}list}\PY{p}{,} \PY{n}{num\PYZus{}list}\PY{p}{,} \PY{n}{used\PYZus{}list}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ 需要 }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ 个货币来找零}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{need\PYZus{}change}\PY{p}{,} \PY{n}{num\PYZus{}list}\PY{p}{[}\PY{n}{need\PYZus{}change}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{give\PYZus{}list} \PY{o}{=} \PY{n}{showChange}\PY{p}{(}\PY{n}{need\PYZus{}change}\PY{p}{,} \PY{n}{used\PYZus{}list}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{give\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+64 需要 4 个货币来找零
+[1, 21, 21, 21]
+
+    \end{Verbatim}
+
+    \subsubsection{二叉树}\label{ux4e8cux53c9ux6811}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{} 二叉树节点}
+          \PY{k}{class} \PY{n+nc}{Node}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{data}\PY{p}{,}\PY{n}{left}\PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{right} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{data} \PY{o}{=} \PY{n}{data}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{left} \PY{o}{=} \PY{n}{left}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{right} \PY{o}{=} \PY{n}{right}
+                  
+          \PY{n}{tree} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{left} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{left}\PY{o}{=}\PY{n}{Node}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{n}{right} \PY{o}{=}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)} \PY{p}{)}\PY{p}{,}
+                      \PY{n}{right} \PY{o}{=}\PY{n}{Node}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,}\PY{n}{left} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}\PY{n}{right} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{c+c1}{\PYZsh{} 层次遍历}
+          \PY{k}{def} \PY{n+nf}{lookup}\PY{p}{(}\PY{n}{root}\PY{p}{)}\PY{p}{:}
+              \PY{n}{stack} \PY{o}{=} \PY{p}{[}\PY{n}{root}\PY{p}{]}
+              \PY{k}{while} \PY{n}{stack}\PY{p}{:}
+                  \PY{n}{current} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                  \PY{n+nb}{print} \PY{n}{current}\PY{o}{.}\PY{n}{data}
+                  \PY{k}{if} \PY{n}{current}\PY{o}{.}\PY{n}{left}\PY{p}{:}
+                      \PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{current}\PY{o}{.}\PY{n}{left}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{current}\PY{o}{.}\PY{n}{right}\PY{p}{:}
+                      \PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{current}\PY{o}{.}\PY{n}{right}\PY{p}{)}
+                  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{lookup}\PY{p}{(}\PY{n}{tree}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+3
+2
+0
+6
+5
+4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{c+c1}{\PYZsh{} 深度遍历}
+          \PY{k}{def} \PY{n+nf}{deep}\PY{p}{(}\PY{n}{root}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{o+ow}{not} \PY{n}{root}\PY{p}{:}
+                  \PY{k}{return} 
+              \PY{n+nb}{print} \PY{n}{root}\PY{o}{.}\PY{n}{data}
+              \PY{n}{deep}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{left}\PY{p}{)}
+              \PY{n}{deep}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{right}\PY{p}{)}
+          \PY{n}{deep}\PY{p}{(}\PY{n}{tree}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1
+3
+0
+6
+2
+5
+4
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}204}]:} \PY{c+c1}{\PYZsh{} 前中后序遍历}
+          \PY{c+c1}{\PYZsh{}二叉树节点类}
+          \PY{k}{class} \PY{n+nc}{Node}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{data}\PY{p}{,}\PY{n}{left} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n}{right} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{data} \PY{o}{=} \PY{n}{data}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{left} \PY{o}{=} \PY{n}{left}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{right} \PY{o}{=} \PY{n}{right}
+          
+          \PY{n}{tree} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}深度优先一般用递归，广度优先一般用队列}
+          \PY{c+c1}{\PYZsh{} 层次遍历  队列}
+          \PY{k}{def} \PY{n+nf}{lookup}\PY{p}{(}\PY{n}{root}\PY{p}{)}\PY{p}{:}
+              \PY{n}{stack} \PY{o}{=} \PY{p}{[}\PY{n}{root}\PY{p}{]}
+              \PY{k}{while} \PY{n}{stack}\PY{p}{:}
+                  \PY{n}{current} \PY{o}{=} \PY{n}{stack}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                  \PY{n+nb}{print} \PY{n}{current}\PY{o}{.}\PY{n}{data}
+                  \PY{k}{if} \PY{n}{current}\PY{o}{.}\PY{n}{left}\PY{p}{:}
+                      \PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{current}\PY{o}{.}\PY{n}{left}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{current}\PY{o}{.}\PY{n}{right}\PY{p}{:}
+                      \PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{current}\PY{o}{.}\PY{n}{right}\PY{p}{)}
+                      
+          \PY{c+c1}{\PYZsh{} print \PYZdq{}层次遍历结果：\PYZdq{}}
+          \PY{c+c1}{\PYZsh{} lookup(tree)}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+          \PY{c+c1}{\PYZsh{} 前序遍历：根 左 右}
+          \PY{k}{def} \PY{n+nf}{pre\PYZus{}travelsal}\PY{p}{(}\PY{n}{root}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print} \PY{n}{root}\PY{o}{.}\PY{n}{data}
+              \PY{k}{if} \PY{n}{root}\PY{o}{.}\PY{n}{left}\PY{p}{:}
+                  \PY{n}{pre\PYZus{}travelsal}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{left}\PY{p}{)}
+              \PY{k}{if} \PY{n}{root}\PY{o}{.}\PY{n}{right}\PY{p}{:}
+                  \PY{n}{pre\PYZus{}travelsal}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{right}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} print \PYZdq{}前序遍历结果：\PYZdq{}}
+          \PY{c+c1}{\PYZsh{} pre\PYZus{}travelsal(tree)}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} 前序遍历 非递归版\PYZhy{}\PYZhy{}堆栈实现}
+          \PY{k}{def} \PY{n+nf}{front\PYZus{}stack}\PY{p}{(}\PY{n}{root}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{root} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{k}{return} 
+              \PY{n}{mystack} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{node} \PY{o}{=} \PY{n}{root}
+              \PY{k}{while} \PY{n}{node} \PY{o+ow}{or} \PY{n}{mystack}\PY{p}{:}
+                  \PY{k}{while} \PY{n}{node}\PY{p}{:}
+                      \PY{n+nb}{print} \PY{n}{node}\PY{o}{.}\PY{n}{data}
+                      \PY{n}{mystack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node}\PY{p}{)}
+                      \PY{n}{node} \PY{o}{=} \PY{n}{node}\PY{o}{.}\PY{n}{left}
+                  \PY{n}{node} \PY{o}{=} \PY{n}{mystack}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{node} \PY{o}{=} \PY{n}{node}\PY{o}{.}\PY{n}{right}
+          \PY{c+c1}{\PYZsh{} print \PYZdq{}前序遍历结果\PYZhy{}非递归（堆栈）：\PYZdq{}}
+          \PY{c+c1}{\PYZsh{} front\PYZus{}stack(tree)}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} 中序遍历：左 根 右}
+          \PY{k}{def} \PY{n+nf}{mid\PYZus{}travelsal}\PY{p}{(}\PY{n}{root}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{root}\PY{o}{.}\PY{n}{left} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{n}{mid\PYZus{}travelsal}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{left}\PY{p}{)}
+              \PY{n+nb}{print} \PY{n}{root}\PY{o}{.}\PY{n}{data}
+              \PY{k}{if} \PY{n}{root}\PY{o}{.}\PY{n}{right} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{n}{mid\PYZus{}travelsal}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{right}\PY{p}{)}
+              
+          \PY{c+c1}{\PYZsh{} print \PYZdq{}中序遍历结果：\PYZdq{}}
+          \PY{c+c1}{\PYZsh{} mid\PYZus{}travelsal(tree)}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} 中序遍历 非递归版\PYZhy{}\PYZhy{}堆栈实现}
+          \PY{k}{def} \PY{n+nf}{mid\PYZus{}stack}\PY{p}{(}\PY{n}{root}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{root} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{k}{return}
+              \PY{n}{mystack} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{node} \PY{o}{=} \PY{n}{root}
+              \PY{k}{while} \PY{n}{node} \PY{o+ow}{or} \PY{n}{mystack}\PY{p}{:}
+                  \PY{k}{while} \PY{n}{node}\PY{p}{:}
+                      \PY{n}{mystack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node}\PY{p}{)}
+                      \PY{n}{node} \PY{o}{=} \PY{n}{node}\PY{o}{.}\PY{n}{left}
+                  \PY{n}{node} \PY{o}{=} \PY{n}{mystack}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+                  \PY{n+nb}{print} \PY{n}{node}\PY{o}{.}\PY{n}{data}
+                  \PY{n}{node} \PY{o}{=} \PY{n}{node}\PY{o}{.}\PY{n}{right}
+          \PY{c+c1}{\PYZsh{} print \PYZdq{}中序遍历结果\PYZhy{}非递归（堆栈）：\PYZdq{}}
+          \PY{c+c1}{\PYZsh{} mid\PYZus{}stack(tree)}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}   
+          
+          \PY{c+c1}{\PYZsh{} 后序遍历 ：左 右 根}
+          \PY{k}{def} \PY{n+nf}{later\PYZus{}travelsal}\PY{p}{(}\PY{n}{root}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{root}\PY{o}{.}\PY{n}{left} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{n}{later\PYZus{}travelsal}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{left}\PY{p}{)}
+              \PY{k}{if} \PY{n}{root}\PY{o}{.}\PY{n}{right} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{n}{later\PYZus{}travelsal}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{right}\PY{p}{)}
+              \PY{n+nb}{print} \PY{n}{root}\PY{o}{.}\PY{n}{data}
+              
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{后序遍历结果：}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{later\PYZus{}travelsal}\PY{p}{(}\PY{n}{tree}\PY{p}{)}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+          \PY{c+c1}{\PYZsh{} 后序遍历 ：非递归（堆栈）}
+          \PY{k}{def} \PY{n+nf}{later\PYZus{}stack}\PY{p}{(}\PY{n}{root}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{root} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{k}{return} 
+              \PY{n}{node} \PY{o}{=} \PY{n}{root}
+              \PY{n}{mystack1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{mystack2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{mystack1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} 后序遍历的 逆序入栈}
+              \PY{k}{while} \PY{n}{mystack1}\PY{p}{:}
+                  \PY{n}{node} \PY{o}{=} \PY{n}{mystack1}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{node}\PY{o}{.}\PY{n}{left}\PY{p}{:}
+                      \PY{n}{mystack1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node}\PY{o}{.}\PY{n}{left}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{node}\PY{o}{.}\PY{n}{right}\PY{p}{:}
+                      \PY{n}{mystack1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node}\PY{o}{.}\PY{n}{right}\PY{p}{)}
+                  \PY{n}{mystack2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} 出栈，得到后序遍历的次序}
+              \PY{k}{while} \PY{n}{mystack2}\PY{p}{:}
+                  \PY{n+nb}{print} \PY{n}{mystack2}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{data}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{后序遍历结果：\PYZhy{}非递归（堆栈）}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{later\PYZus{}stack}\PY{p}{(}\PY{n}{tree}\PY{p}{)}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}        
+          
+          
+          \PY{c+c1}{\PYZsh{} 最大树深}
+          \PY{k}{def} \PY{n+nf}{maxDepth}\PY{p}{(}\PY{n}{root}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{o+ow}{not} \PY{n}{root}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{0}
+              \PY{k}{return} \PY{n+nb}{max}\PY{p}{(}\PY{n}{maxDepth}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{left}\PY{p}{)}\PY{p}{,}\PY{n}{maxDepth}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{right}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{最大树深：}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{depth} \PY{o}{=} \PY{n}{maxDepth}\PY{p}{(}\PY{n}{tree}\PY{p}{)}
+          \PY{n+nb}{print} \PY{n}{depth}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} 判断两棵树是否相同}
+          \PY{k}{def} \PY{n+nf}{isSameTree}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    :param p,q 树}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{k}{if} \PY{n}{p} \PY{o}{==} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{q} \PY{o}{==} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{k}{return} \PY{k+kc}{True}
+              \PY{k}{elif} \PY{n}{p} \PY{o+ow}{and} \PY{n}{q}\PY{p}{:}
+                  \PY{k}{return} \PY{n}{p}\PY{o}{.}\PY{n}{data} \PY{o}{==} \PY{n}{q}\PY{o}{.}\PY{n}{data} \PY{o+ow}{and} \PY{n}{isSameTree}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{left}\PY{p}{,}\PY{n}{q}\PY{o}{.}\PY{n}{left}\PY{p}{)} \PY{o+ow}{and} \PY{n}{isSameTree}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{right}\PY{p}{,}\PY{n}{q}\PY{o}{.}\PY{n}{right}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{k}{return} \PY{k+kc}{False}
+              
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{判断两棵树是否相同：}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{tree1} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{tree2} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{left} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{left}\PY{o}{=}\PY{n}{Node}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{n}{right} \PY{o}{=}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)} \PY{p}{)}\PY{p}{,}
+                      \PY{n}{right} \PY{o}{=}\PY{n}{Node}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,}\PY{n}{left} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}\PY{n}{right} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{p}{)}
+          \PY{n+nb}{print} \PY{n}{isSameTree}\PY{p}{(}\PY{n}{p} \PY{o}{=} \PY{n}{tree1}\PY{p}{,}\PY{n}{q}\PY{o}{=} \PY{n}{tree2}\PY{p}{)}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{} 前序中序遍历 求后序遍历}
+          \PY{k}{def} \PY{n+nf}{rebuild}\PY{p}{(}\PY{n}{pre}\PY{p}{,}\PY{n}{center}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{o+ow}{not} \PY{n}{pre}\PY{p}{:}
+                  \PY{k}{return}
+              \PY{n}{cur} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{pre}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{index} \PY{o}{=} \PY{n}{center}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n}{pre}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{n}{cur}\PY{o}{.}\PY{n}{left} \PY{o}{=} \PY{n}{rebuild}\PY{p}{(}\PY{n}{pre}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{center}\PY{p}{[}\PY{p}{:}\PY{n}{index}\PY{p}{]}\PY{p}{)}
+              \PY{n}{cur}\PY{o}{.}\PY{n}{right} \PY{o}{=} \PY{n}{rebuild}\PY{p}{(}\PY{n}{pre}\PY{p}{[}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{n}{center}\PY{p}{[}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+              \PY{k}{return} \PY{n}{cur}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{重构后的 后序遍历结果：}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{pre} \PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{center} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{cur} \PY{o}{=} \PY{n}{rebuild}\PY{p}{(}\PY{n}{pre}\PY{p}{,}\PY{n}{center}\PY{p}{)}
+          \PY{n}{later\PYZus{}travelsal}\PY{p}{(}\PY{n}{cur}\PY{p}{)}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ 
+ 
+ 
+ 
+ 
+后序遍历结果：
+0
+7
+6
+3
+5
+4
+2
+1
+ 
+后序遍历结果：-非递归（堆栈）
+0
+7
+6
+3
+5
+4
+2
+1
+ 
+最大树深：
+4
+ 
+判断两棵树是否相同：
+False
+ 
+重构后的 后序遍历结果：
+G
+D
+B
+E
+H
+F
+C
+A
+ 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}163}]:} \PY{n}{tree3} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{a}\PY{o}{=}\PY{p}{[}\PY{n}{tree3}\PY{p}{]}
+          \PY{n}{b} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{while} \PY{n}{a}\PY{p}{:}
+              \PY{n}{node} \PY{o}{=} \PY{n}{a}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+              \PY{n}{b}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+              \PY{k}{if} \PY{n}{node}\PY{o}{.}\PY{n}{left}\PY{p}{:}
+                  \PY{n}{a}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node}\PY{o}{.}\PY{n}{left}\PY{p}{)}
+              \PY{k}{if} \PY{n}{node}\PY{o}{.}\PY{n}{right}\PY{p}{:}
+                  \PY{n}{a}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{node}\PY{o}{.}\PY{n}{right}\PY{p}{)}
+              
+          \PY{n+nb}{print} \PY{n}{b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 3, 2, 5, 4]
+
+    \end{Verbatim}
+
+    \subsubsection{python的列表实现堆栈和队列}\label{pythonux7684ux5217ux8868ux5b9eux73b0ux5806ux6808ux548cux961fux5217}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}176}]:} \PY{c+c1}{\PYZsh{} 堆栈 后进先出，用列表的append()实现 入栈push，pop()实现出栈pop操作}
+          \PY{k}{class} \PY{n+nc}{Stack}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{size}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{size} \PY{o}{=}\PY{n}{size}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{stack} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{top} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                  
+              \PY{k}{def} \PY{n+nf}{push}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{isfull}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}检查栈是否已满}
+                      \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{stack is full}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{top} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{top} \PY{o}{+} \PY{l+m+mi}{1}
+                      
+              \PY{k}{def} \PY{n+nf}{pop}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{isempty}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{stack is empty}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{top} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{top} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{stack}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+                  
+              \PY{k}{def} \PY{n+nf}{isfull}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{top} \PY{o}{+}\PY{l+m+mi}{1} \PY{o}{==}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{size}
+              
+              \PY{k}{def} \PY{n+nf}{isempty}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{top} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+              \PY{k}{def} \PY{n+nf}{printStack}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{stack}
+          
+          \PY{n}{s} \PY{o}{=} \PY{n}{Stack}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+              \PY{n}{s}\PY{o}{.}\PY{n}{push}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+          \PY{n}{s}\PY{o}{.}\PY{n}{printStack}\PY{p}{(}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+              \PY{n}{s}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+          \PY{n}{s}\PY{o}{.}\PY{n}{printStack}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0, 1, 2, 3, 4, 5]
+[0, 1, 2]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{c+c1}{\PYZsh{} 队列 先进先出  利用append()实现入队列，pop(0)出队列}
+          \PY{k}{class} \PY{n+nc}{Queue}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{size}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{size} \PY{o}{=} \PY{n}{size}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{front} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} 模拟队头指针}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rear} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}  \PY{c+c1}{\PYZsh{} 模拟队尾指针}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{queue} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              
+              \PY{k}{def} \PY{n+nf}{enqueue}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{ele}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{isfull}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{queue is full}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{queue}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ele}\PY{p}{)}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rear} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rear} \PY{o}{+}\PY{l+m+mi}{1}
+              
+              \PY{k}{def} \PY{n+nf}{dequeue}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{isempty}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{queue is empty}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{queue}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{front} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              
+              \PY{k}{def} \PY{n+nf}{isfull}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rear} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{front} \PY{o}{+} \PY{l+m+mi}{1} \PY{o}{==} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{size}
+              
+              \PY{k}{def} \PY{n+nf}{isempty}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{front} \PY{o}{==} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rear}
+              
+              \PY{k}{def} \PY{n+nf}{printQueue}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{queue}
+          
+          \PY{n}{q} \PY{o}{=} \PY{n}{Queue}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+              \PY{n}{q}\PY{o}{.}\PY{n}{enqueue}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+          \PY{n}{q}\PY{o}{.}\PY{n}{printQueue}\PY{p}{(}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+              \PY{n}{q}\PY{o}{.}\PY{n}{dequeue}\PY{p}{(}\PY{p}{)}
+          \PY{n}{q}\PY{o}{.}\PY{n}{printQueue}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print} \PY{n}{q}\PY{o}{.}\PY{n}{isempty}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0, 1, 2, 3, 4, 5]
+[3, 4, 5]
+False
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{c+c1}{\PYZsh{} 词频统计}
+          \PY{k+kn}{import} \PY{n+nn}{re}\PY{o}{,}\PY{n+nn}{collections}
+          \PY{k}{def} \PY{n+nf}{words\PYZus{}counts}\PY{p}{(}\PY{n}{file}\PY{p}{)}\PY{p}{:}
+              \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{file}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                  \PY{n}{words\PYZus{}boxs}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+                  \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{f}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{re}\PY{o}{.}\PY{n}{match}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[a\PYZhy{}zA\PYZhy{}Z0\PYZhy{}9]*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{line}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}字符 数字}
+                          \PY{n}{words\PYZus{}boxs}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{line}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+              \PY{k}{return} \PY{n}{collections}\PY{o}{.}\PY{n}{Counter}\PY{p}{(}\PY{n}{words\PYZus{}boxs}\PY{p}{)}  \PY{c+c1}{\PYZsh{} collections.Counter 返回 dict()转化为字典}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{n}{a}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+          \PY{n}{b}\PY{o}{=}\PY{n}{collections}\PY{o}{.}\PY{n}{Counter}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+          \PY{n+nb}{print} \PY{n}{b}
+          \PY{n+nb}{print} \PY{n}{b}\PY{o}{.}\PY{n}{most\PYZus{}common}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Counter(\{3: 8, 2: 6, 1: 1, 4: 1\})
+[(3, 8), (2, 6)]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{n}{b}\PY{o}{.}\PY{n}{most\PYZus{}common}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}200}]:} [(3, 3), (2, 2), (1, 1)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} 单链表反转}
+          \PY{k}{class} \PY{n+nc}{Node}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,}\PY{n+nb}{next}\PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{data} \PY{o}{=} \PY{n}{data}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{next} \PY{o}{=} \PY{n+nb}{next}
+          \PY{n}{link} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}
+                      \PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{Node}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} 输出链表}
+          \PY{n}{a}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{n}{root} \PY{o}{=} \PY{n}{link}
+          \PY{k}{while} \PY{n}{root}\PY{p}{:}
+              \PY{n}{a}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+              \PY{n}{root} \PY{o}{=}\PY{n}{root}\PY{o}{.}\PY{n}{next}
+          \PY{n+nb}{print} \PY{n}{a}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+          
+          \PY{c+c1}{\PYZsh{}反转}
+          \PY{k}{def} \PY{n+nf}{rev}\PY{p}{(}\PY{n}{link}\PY{p}{)}\PY{p}{:}
+              \PY{n}{pre} \PY{o}{=} \PY{n}{link}
+              \PY{n}{cur} \PY{o}{=} \PY{n}{link}\PY{o}{.}\PY{n}{next}
+              \PY{n}{pre}\PY{o}{.}\PY{n}{next} \PY{o}{=} \PY{k+kc}{None}
+              \PY{k}{while} \PY{n}{cur}\PY{p}{:}
+                  \PY{n}{tmp} \PY{o}{=} \PY{n}{cur}\PY{o}{.}\PY{n}{next}
+                  \PY{n}{cur}\PY{o}{.}\PY{n}{next} \PY{o}{=} \PY{n}{pre}
+                  \PY{n}{pre} \PY{o}{=} \PY{n}{cur}
+                  \PY{n}{cur} \PY{o}{=} \PY{n}{tmp}
+              \PY{k}{return} \PY{n}{pre}
+          
+          \PY{n}{root} \PY{o}{=} \PY{n}{rev}\PY{p}{(}\PY{n}{link}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} 输出链表}
+          \PY{n}{b}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{k}{while} \PY{n}{root}\PY{p}{:}
+              \PY{n}{b}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{root}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+              \PY{n}{root} \PY{o}{=}\PY{n}{root}\PY{o}{.}\PY{n}{next}
+          \PY{n+nb}{print} \PY{n}{b}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+ 
+[9, 8, 7, 6, 5, 4, 3, 2, 1]
+ 
+
+    \end{Verbatim}
+
+    \subsubsection{全排列问题}\label{ux5168ux6392ux5217ux95eeux9898}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{c+c1}{\PYZsh{} 递归思想}
+          \PY{n}{COUNT} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{def} \PY{n+nf}{full\PYZus{}permutation}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{begin}\PY{p}{,}\PY{n}{end}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{k}{global} \PY{n}{COUNT}
+              \PY{k}{if} \PY{n}{begin} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{end}\PY{p}{:}
+                  \PY{n+nb}{print} \PY{n}{n}
+                  \PY{n}{COUNT} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{i} \PY{o}{=} \PY{n}{begin}
+                  \PY{k}{for} \PY{n}{num} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{begin}\PY{p}{,}\PY{n}{end}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{n}\PY{p}{[}\PY{n}{num}\PY{p}{]}\PY{p}{,}\PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{n}\PY{p}{[}\PY{n}{num}\PY{p}{]}
+                      \PY{n}{full\PYZus{}permutation}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{begin}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{end}\PY{p}{)}
+                      \PY{n}{n}\PY{p}{[}\PY{n}{num}\PY{p}{]}\PY{p}{,}\PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{n}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{n}\PY{p}{[}\PY{n}{num}\PY{p}{]}
+                      \PY{n+nb}{print} \PY{n}{n}
+          \PY{n}{n} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+          \PY{n}{full\PYZus{}permutation}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print} \PY{n}{COUNT}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 2]
+[1, 2]
+[1, 2]
+[2, 1]
+[2, 1]
+[1, 2]
+2
+
+    \end{Verbatim}
+
+    \href{http://7xsn7l.com2.z0.glb.clouddn.com/\%E9\%80\%92\%E5\%BD\%92\%E5\%AE\%9E\%E7\%8E\%B0\%E5\%85\%A8\%E6\%8E\%92\%E5\%88\%97.png}{!image}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{n}{NUM} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{def} \PY{n+nf}{perm}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{stack}\PY{p}{)}\PY{p}{:}
+              \PY{k}{global} \PY{n}{NUM}
+              \PY{k}{if} \PY{o+ow}{not} \PY{n}{lists}\PY{p}{:} \PY{c+c1}{\PYZsh{}到树的最后。列表为空}
+                  \PY{n+nb}{print} \PY{n}{stack}
+                  \PY{n}{NUM} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{lists}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{lists}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                      \PY{k}{del} \PY{n}{lists}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                      \PY{n}{perm}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{stack}\PY{p}{)}
+                      \PY{n}{lists}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{stack}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{lists}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}
+          \PY{n}{stack}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{n}{perm}\PY{p}{(}\PY{n}{lists}\PY{p}{,}\PY{n}{stack}\PY{p}{)}
+          \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{总共的排列个数为}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{NUM}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 2, 3]
+[1, 3, 2]
+[2, 1, 3]
+[2, 3, 1]
+[3, 1, 2]
+[3, 2, 1]
+总共的排列个数为6
+
+    \end{Verbatim}
+
+    \subsubsection{将一个数n的各数位分成两部分，两部分之和相等，则称这个数为神奇数。比如242分成{[}2,2{]}、{[}4{]}。输入一个范围{[}l,
+r{]}，输出这个范围内神奇数的个数。}\label{ux5c06ux4e00ux4e2aux6570nux7684ux5404ux6570ux4f4dux5206ux6210ux4e24ux90e8ux5206ux4e24ux90e8ux5206ux4e4bux548cux76f8ux7b49ux5219ux79f0ux8fd9ux4e2aux6570ux4e3aux795eux5947ux6570ux6bd4ux5982242ux5206ux6210224ux8f93ux5165ux4e00ux4e2aux8303ux56f4l-rux8f93ux51faux8fd9ux4e2aux8303ux56f4ux5185ux795eux5947ux6570ux7684ux4e2aux6570}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}266}]:} \PY{k}{def} \PY{n+nf}{canPartition}\PY{p}{(}\PY{n}{d}\PY{p}{,}\PY{n}{n}\PY{p}{,}\PY{n+nb}{sum}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    :param lists: list}
+          \PY{l+s+sd}{    :param n: }
+          \PY{l+s+sd}{    :param sum: 和}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{dp}\PY{o}{=}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{sum}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+              \PY{n+nb}{print} \PY{n}{dp}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{dp}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+              \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{sum}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{dp}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{dp}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}  \PY{c+c1}{\PYZsh{} 不选第i 个元素}
+                      \PY{k}{if} \PY{n}{j}\PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{d}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:} \PY{c+c1}{\PYZsh{} 选第i个元素}
+                          \PY{n}{dp}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{dp}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o+ow}{or} \PY{n}{dp}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{o}{\PYZhy{}}\PY{n}{d}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                          
+          \PY{k}{def} \PY{n+nf}{check}\PY{p}{(}\PY{n}{num}\PY{p}{)}\PY{p}{:}
+              \PY{n}{numbers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n+nb}{sum} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{while} \PY{n}{num} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                  \PY{n}{numbers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{num}\PY{o}{\PYZpc{}}\PY{k}{10})
+                  \PY{n+nb}{sum} \PY{o}{+}\PY{o}{=} \PY{n}{num}\PY{o}{\PYZpc{}}\PY{k}{10}
+                  \PY{n}{num} \PY{o}{=} \PY{n}{num}\PY{o}{/}\PY{l+m+mi}{10}
+              \PY{k}{if} \PY{n+nb}{sum} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}  \PY{c+c1}{\PYZsh{} sum和 为奇数，直接返回}
+                  \PY{k}{return} \PY{k+kc}{False}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{numbers}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                  \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{          利用temp遍历每种情况的每个元素}
+          \PY{l+s+sd}{            1011 \PYZam{} 0001即遍历第一个元素的情况}
+          \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                  \PY{n}{temp} \PY{o}{=}\PY{l+m+mi}{1}
+                  \PY{n}{sumA} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{numbers}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{i} \PY{o}{\PYZam{}} \PY{n}{temp} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                          \PY{n}{sumA} \PY{o}{+}\PY{o}{=} \PY{n}{numbers}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                      \PY{k}{if} \PY{n}{sumA} \PY{o}{\PYZgt{}} \PY{n+nb}{sum}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{:}
+                          \PY{k}{break}
+                      \PY{n}{temp} \PY{o}{=} \PY{n}{temp} \PY{o}{\PYZlt{}\PYZlt{}} \PY{l+m+mi}{1}
+                  \PY{k}{if} \PY{n}{sumA} \PY{o}{==} \PY{n+nb}{sum}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{:}
+                      \PY{k}{return} \PY{k+kc}{True}
+          
+          \PY{n}{cnt} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{check}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print} \PY{n}{i}
+                  \PY{n}{cnt} \PY{o}{=} \PY{n}{cnt} \PY{o}{+}\PY{l+m+mi}{1}
+          \PY{n+nb}{print} \PY{n}{cnt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+11
+22
+33
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}275}]:} \PY{c+c1}{\PYZsh{} example：  }
+          \PY{c+c1}{\PYZsh{}   input: 1477     return: 1477  }
+          \PY{c+c1}{\PYZsh{}   input: 2560     return: 2559  }
+          \PY{c+c1}{\PYZsh{}   input: 4587     return: 4580  }
+            
+          \PY{c+c1}{\PYZsh{} 先定义迁移字典  }
+          \PY{n}{move\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{+}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}  
+                       \PY{l+m+mi}{2}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}  
+                       \PY{l+m+mi}{3}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{,}  
+                       \PY{l+m+mi}{4}\PY{p}{:}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{+}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}  
+                       \PY{l+m+mi}{5}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}  
+                       \PY{l+m+mi}{6}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{,}  
+                       \PY{l+m+mi}{7}\PY{p}{:}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{+}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}  
+                       \PY{l+m+mi}{8}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}  
+                       \PY{l+m+mi}{9}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{,}  
+                       \PY{l+m+mi}{0}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{\PYZcb{}}  
+          \PY{n+nb}{print} \PY{n}{move\PYZus{}dict}
+          \PY{k}{def} \PY{n+nf}{judge}\PY{p}{(}\PY{n}{string}\PY{p}{)}\PY{p}{:}
+              \PY{n}{val} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{string}\PY{p}{]}
+              \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{while} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{val}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{val}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o+ow}{in} \PY{n}{move\PYZus{}dict}\PY{p}{[}\PY{n}{val}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{:}
+                      \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{k}{continue}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{max\PYZus{}v} \PY{o}{=} \PY{k+kc}{None}
+                      \PY{k}{for} \PY{n}{va} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{move\PYZus{}dict}\PY{p}{[}\PY{n}{val}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                          \PY{k}{if} \PY{n}{va} \PY{o}{\PYZlt{}} \PY{n}{val}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                              \PY{n}{max\PYZus{}v} \PY{o}{=} \PY{n}{va} 
+                          \PY{n+nb}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}v: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{max\PYZus{}v}
+                      \PY{k}{if} \PY{n}{max\PYZus{}v} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                          \PY{n}{val}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{n}{val}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{max\PYZus{}v}
+                          \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{val}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{val}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=}\PY{n+nb}{max}\PY{p}{(}\PY{n}{move\PYZus{}dict}\PY{p}{[}\PY{n}{val}\PY{p}{[}\PY{n}{j}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                      \PY{k}{break}
+              \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{val}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} def test\PYZus{}judge():  }
+          \PY{c+c1}{\PYZsh{}     import random  }
+          \PY{c+c1}{\PYZsh{}     for i in range(10):  }
+          \PY{c+c1}{\PYZsh{}         num = str(random.randint(0,10**4))  }
+          \PY{c+c1}{\PYZsh{}         print num+\PYZsq{}: \PYZsq{}, judge(num)  }
+          \PY{c+c1}{\PYZsh{} test\PYZus{}judge() }
+          \PY{n+nb}{print} \PY{n}{judge}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{7185}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: [0], 1: [2, 3, 4, 5, 6, 7, 8, 9, 0], 2: [2, 3, 5, 6, 8, 9, 0], 3: [3, 6, 9], 4: [4, 5, 6, 7, 8, 9, 0], 5: [5, 6, 8, 9, 0], 6: [6, 9], 7: [7, 8, 9, 0], 8: [8, 9, 0], 9: [9]\}
+max\_v:  0
+max\_v:  0
+max\_v:  0
+max\_v:  0
+7000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}280}]:} \PY{n}{fib}\PY{o}{=} \PY{k}{lambda} \PY{n}{n}\PY{p}{:}\PY{n}{n} \PY{k}{if} \PY{n}{n}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{2} \PY{k}{else} \PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{+}\PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{fib}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}280}]:} 89
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}281}]:} \PY{k}{def} \PY{n+nf}{fib}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{n} \PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{1}
+              \PY{k}{elif} \PY{n}{n}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{2}
+              \PY{k}{elif} \PY{n}{n}\PY{o}{==}\PY{l+m+mi}{3}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{4}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{k}{return} \PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{+}\PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{+}\PY{n}{fib}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n+nb}{print} \PY{n}{fib}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5768
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}290}]:} \PY{c+c1}{\PYZsh{}动态规划}
+          \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+              \PY{n}{a}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{a}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{a}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZpc{}} \PY{l+m+mi}{100000007}
+              \PY{k}{return} \PY{n}{a}\PY{p}{[}\PY{n}{n}\PY{p}{]}
+          \PY{n+nb}{print} \PY{n}{fun}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+89
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}295}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}length}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{n} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{1}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{k}{return} \PY{n}{n} \PY{o}{+} \PY{n}{n}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{get\PYZus{}length}\PY{p}{(}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+          
+          \PY{n}{a} \PY{o}{=}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{80}\PY{p}{,}\PY{l+m+mi}{70}\PY{p}{]}
+          \PY{n+nb}{sum}\PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{a}\PY{p}{:}
+              \PY{n+nb}{sum} \PY{o}{+}\PY{o}{=} \PY{n}{get\PYZus{}length}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+          \PY{n+nb}{print} \PY{n+nb}{sum}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+996
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}310}]:} \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{string}\PY{p}{)}\PY{p}{:}
+              \PY{n}{stack} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{num} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{k}{for} \PY{n}{each} \PY{o+ow}{in} \PY{n}{string}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{each} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                      \PY{n}{stack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{each}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{num} \PY{o}{=}  \PY{n}{num} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{stack}\PY{p}{)}
+                      \PY{n}{stack}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+              \PY{k}{return} \PY{n}{num}
+          \PY{n+nb}{print} \PY{n}{f}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(((())))}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+24
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{divideapple}\PY{p}{(}\PY{n}{bearNum}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{bearNum} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1} \PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{0}
+            \PY{k}{elif} \PY{n}{bearNum} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{1}
+            \PY{n}{testNum} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n}{appleNum} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+                \PY{n}{appleNum} \PY{o}{=} \PY{n}{testNum}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{bearNum}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{appleNum} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{bearNum} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                        \PY{n}{appleNum} \PY{o}{=} \PY{n}{appleNum}\PY{o}{/}\PY{p}{(}\PY{n}{bearNum} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*} \PY{n}{bearNum} \PY{o}{+}\PY{l+m+mi}{1}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{k}{break}
+                \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{n}{bearNum}\PY{p}{:}
+                    \PY{k}{break}
+                \PY{n}{testNum} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+            \PY{k}{return} \PY{n}{appleNum}
+        
+        \PY{n+nb}{print} \PY{n}{divideapple}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyboardInterrupt                         Traceback (most recent call last)
+
+        <ipython-input-9-39f823d10d36> in <module>()
+         19     return appleNum
+         20 
+    ---> 21 print divideapple(2)
+    
+
+        <ipython-input-9-39f823d10d36> in divideapple(bearNum)
+         16         if i == bearNum:
+         17             break
+    ---> 18         testNum += 1
+         19     return appleNum
+         20 
+    
+
+        KeyboardInterrupt: 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{s} \PY{o}{=}  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abracadabra}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{s1} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{abracadabra}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{def} \PY{n+nf}{func}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{tmp} \PY{o}{=} \PY{n}{i}
+                 \PY{k}{while} \PY{n}{s}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{==} \PY{n}{s}\PY{p}{[}\PY{n}{tmp}\PY{p}{]}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{tmp} \PY{o}{==}\PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                         \PY{n}{tmps} \PY{o}{=} \PY{n}{s}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{i}\PY{p}{]}
+                         \PY{n+nb}{print} \PY{n}{tmps}
+                         \PY{k}{return} \PY{n}{tmps} \PY{o}{+} \PY{n}{s}
+                     \PY{n}{j} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{n}{tmp} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{s}\PY{o}{+}\PY{n}{s}
+         \PY{n+nb}{print} \PY{n}{s}
+         \PY{n+nb}{print} \PY{n}{func}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+                 
+                     
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+abracadabra
+abracad
+abracadabracadabra
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{itertools}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ABCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{repeat} \PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+AA AB AC AD BA BB BC BD CA CB CC CD DA DB DC DD
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{for}  \PY{n}{i} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{permutations}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ABCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ABCD ABDC ACBD ACDB ADBC ADCB BACD BADC BCAD BCDA BDAC BDCA CABD CADB CBAD CBDA CDAB CDBA DABC DACB DBAC DBCA DCAB DCBA
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{combinations}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ABCD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ABCD
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{itertools}
+        \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}
+        \PY{k}{def} \PY{n+nf}{fun}\PY{p}{(}\PY{n}{lists}\PY{p}{)}\PY{p}{:}
+            \PY{n}{a} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{b} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{num1} \PY{o}{=} \PY{n}{a}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{+}\PY{n}{b}
+            \PY{n}{c} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+            
+            \PY{n}{d} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+            \PY{n}{e} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+            \PY{n}{num2} \PY{o}{=} \PY{n}{d}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{+}\PY{n}{e}
+            \PY{n}{f} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+            
+            \PY{n}{g} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}
+            \PY{n}{h} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}
+            \PY{n}{num3} \PY{o}{=} \PY{n}{g}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{+}\PY{n}{h}
+            \PY{n}{i} \PY{o}{=} \PY{n}{lists}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}
+            \PY{k}{if} \PY{n}{c}\PY{o}{*}\PY{n}{num2}\PY{o}{*}\PY{n}{num3}\PY{o}{+}\PY{n}{f}\PY{o}{*}\PY{n}{num1}\PY{o}{*}\PY{n}{num3} \PY{o}{==} \PY{n}{num1}\PY{o}{*}\PY{n}{num2}\PY{o}{*}\PY{n}{i}\PY{p}{:}
+                \PY{n+nb}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{/}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{/}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{/}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{c}\PY{p}{,}\PY{n}{num1}\PY{p}{,}\PY{n}{f}\PY{p}{,}\PY{n}{num2}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{num3}\PY{p}{)}
+                \PY{k}{return} \PY{k+kc}{True}
+            \PY{k}{return} \PY{k+kc}{False}
+        \PY{k}{for}  \PY{n}{i} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{permutations}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{fun}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print} \PY{n}{i}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1/26,5/78,4/39
+(2, 6, 1, 7, 8, 5, 3, 9, 4)
+5/26,9/78,4/13
+(2, 6, 5, 7, 8, 9, 1, 3, 4)
+1/32,5/96,7/84
+(3, 2, 1, 9, 6, 5, 8, 4, 7)
+1/32,7/96,5/48
+(3, 2, 1, 9, 6, 7, 4, 8, 5)
+6/34,8/51,9/27
+(3, 4, 6, 5, 1, 8, 2, 7, 9)
+9/34,2/68,5/17
+(3, 4, 9, 6, 8, 2, 1, 7, 5)
+4/39,1/78,6/52
+(3, 9, 4, 7, 8, 1, 5, 2, 6)
+7/48,1/96,5/32
+(4, 8, 7, 9, 6, 1, 3, 2, 5)
+8/51,6/34,9/27
+(5, 1, 8, 3, 4, 6, 2, 7, 9)
+9/51,2/68,7/34
+(5, 1, 9, 6, 8, 2, 3, 4, 7)
+4/56,7/98,3/21
+(5, 6, 4, 9, 8, 7, 2, 1, 3)
+2/68,9/34,5/17
+(6, 8, 2, 3, 4, 9, 1, 7, 5)
+2/68,9/51,7/34
+(6, 8, 2, 5, 1, 9, 3, 4, 7)
+1/78,4/39,6/52
+(7, 8, 1, 3, 9, 4, 5, 2, 6)
+5/78,1/26,4/39
+(7, 8, 5, 2, 6, 1, 3, 9, 4)
+9/78,5/26,4/13
+(7, 8, 9, 2, 6, 5, 1, 3, 4)
+1/96,7/48,5/32
+(9, 6, 1, 4, 8, 7, 3, 2, 5)
+5/96,1/32,7/84
+(9, 6, 5, 3, 2, 1, 8, 4, 7)
+7/96,1/32,5/48
+(9, 6, 7, 3, 2, 1, 4, 8, 5)
+7/98,4/56,3/21
+(9, 8, 7, 5, 6, 4, 2, 1, 3)
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
